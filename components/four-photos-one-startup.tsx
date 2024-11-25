@@ -105,7 +105,7 @@ export function FourPhotosOneStartup() {
         <div className="grid grid-cols-2 gap-6 mb-8">
           {gameRounds[currentRoundIndex].images.map((src, index) => (
             <div
-              key={index}
+              key={src}
               className="cursor-pointer transition-transform hover:scale-[1.02]"
               onClick={() => setSelectedImage(src)}
             >
