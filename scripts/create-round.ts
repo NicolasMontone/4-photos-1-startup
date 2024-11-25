@@ -5,6 +5,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import axios from 'axios'
 import dotenv from 'dotenv'
+import { OpenAI } from 'openai'
 
 // Load environment variables
 dotenv.config()
@@ -21,23 +22,8 @@ async function generateInitialPrompts(startup: string) {
     prompt: `Generate 4 image prompt descriptions that make it easy but challenging for someone to guess the startup "${startup}". The images should never give a direct resemblance to the company, only hints. It could include events related to the company, but nothing that should be directly related to it.
     
     For example, the clues for "Vercel" it should be 1 a moustache representing Guillermo (its CEO), 2 a rabbit for Evil Rabbit (its designer), 3 pyramids resembling their logo, and 4 a right arrow emoji resembling Next.js.
-    For "Supabase" should be a green elephant, 
+    For "Supabase" should be a green elephant ... etc
 
-    A submarine periscope emerging above water near a base station, playing on the "sub" and "base" in the name.
-
-    An open treasure chest filled with fire, over a base, meaning that is the open source version of Firebase.
-
-    
-
-    "Raycast":
-
-A beam of light ("ray") shining onto a computer keyboard, symbolizing illumination and enhanced productivity.
-
-An astronaut floating in space while interacting with floating icons of apps, hinting at exploration and the company's space-themed branding.
-
-A person using a magic wand to summon applications and files instantly, representing quick access and command execution.
-
-A side view of someone typing rapidly into a command-line interface, with commands casting rays outward to perform various tasks.
 
     `,
   })
@@ -57,6 +43,8 @@ async function structurePrompts(initialPrompts: string) {
   return object.prompts
 }
 
+const openai_ = new OpenAI()
+
 async function generateImagePrompts(startup: string) {
   const initialPrompts = await generateInitialPrompts(startup)
   const structuredPrompts = await structurePrompts(initialPrompts)
@@ -64,30 +52,16 @@ async function generateImagePrompts(startup: string) {
 }
 
 async function generateImage(prompt: string): Promise<string> {
-  const response = await axios.post(
-    'https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions',
-    {
-      input: {
-        prompt,
-        go_fast: true,
-        megapixels: '1',
-        num_outputs: 1,
-        aspect_ratio: '1:1',
-        output_format: 'webp',
-        output_quality: 87,
-        num_inference_steps: 4,
-      },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
-        'Content-Type': 'application/json',
-        Prefer: 'wait',
-      },
-    }
-  )
+  const response = await openai_.images.generate({
+    model: 'dall-e-3',
+    prompt,
+  })
 
-  return response.data.output[0]
+  if (!response.data[0].url) {
+    throw new Error('No image URL returned from OpenAI')
+  }
+
+  return response.data[0].url
 }
 
 async function downloadImage(url: string, filename: string) {
@@ -134,8 +108,6 @@ async function main() {
   console.log('Generated prompts:', prompts)
 
   const imageUrls = await Promise.all(prompts.map(generateImage))
-
-  await new Promise((resolve) => setTimeout(resolve, 5_000))
 
   const imageFiles = await Promise.all(
     imageUrls.map(async (url, index) => {
