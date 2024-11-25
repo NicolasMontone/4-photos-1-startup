@@ -97,7 +97,7 @@ export function FourPhotosOneStartup() {
     <>
       <div className="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-xl">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-center">4 Photos 1 Startup</h1>
+          <h1 className="md:text-3xl text-xl font-bold text-center">4 Photos 1 Startup</h1>
           <span className="text-lg">
             Solved: {completedRounds.length}/{gameRounds.length}
           </span>
