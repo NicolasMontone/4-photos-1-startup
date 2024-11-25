@@ -9,7 +9,9 @@ import { gameRounds } from '@/app/rounds'
 
 export function FourPhotosOneStartup() {
   const [completedRounds, setCompletedRounds] = useState<number[]>([])
-  const [currentRoundIndex, setCurrentRoundIndex] = useState<number | null>(null)
+  const [currentRoundIndex, setCurrentRoundIndex] = useState<number | null>(
+    null
+  )
   const [userGuess, setUserGuess] = useState('')
   const [error, setError] = useState('')
   const [gameCompleted, setGameCompleted] = useState(false)
@@ -19,8 +21,8 @@ export function FourPhotosOneStartup() {
   const getRandomRound = useCallback(() => {
     const availableRounds = gameRounds
       .map((_, index) => index)
-      .filter(index => !completedRounds.includes(index))
-    
+      .filter((index) => !completedRounds.includes(index))
+
     if (availableRounds.length === 0) {
       setGameCompleted(true)
       return null
@@ -68,9 +70,10 @@ export function FourPhotosOneStartup() {
     if (currentRoundIndex === null) return
 
     if (
-      userGuess.toLowerCase() === gameRounds[currentRoundIndex].answer.toLowerCase()
+      userGuess.toLowerCase() ===
+      gameRounds[currentRoundIndex].answer.toLowerCase()
     ) {
-      setCompletedRounds(prev => [...prev, currentRoundIndex])
+      setCompletedRounds((prev) => [...prev, currentRoundIndex])
       const nextRound = getRandomRound()
       setCurrentRoundIndex(nextRound)
       setUserGuess('')
@@ -97,7 +100,9 @@ export function FourPhotosOneStartup() {
     <>
       <div className="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-xl">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="md:text-3xl text-xl font-bold text-center">4 Photos 1 Startup</h1>
+          <h1 className="md:text-3xl text-xl font-bold text-center">
+            4 Photos 1 Startup
+          </h1>
           <span className="text-lg">
             Solved: {completedRounds.length}/{gameRounds.length}
           </span>
@@ -157,6 +162,29 @@ export function FourPhotosOneStartup() {
           </div>
         )}
       </div>
+
+      <footer className="max-w-2xl mx-auto mt-4 mb-8 text-center text-sm text-gray-500">
+        <p>
+          made by{' '}
+          <a
+            href="https://github.com/NicolasMontone/4-photos-1-startup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-800 transition-colors"
+          >
+            monto
+          </a>{' '}
+          ✨ with{' '}
+          <a
+            href="https://v0.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-800 transition-colors"
+          >
+            v0
+          </a>
+        </p>
+      </footer>
 
       {/* Image Zoom Modal */}
       {selectedImage && (
