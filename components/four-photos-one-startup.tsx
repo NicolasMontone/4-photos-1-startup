@@ -170,7 +170,7 @@ export function FourPhotosOneStartup() {
             href="https://github.com/NicolasMontone/4-photos-1-startup"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-gray-800 transition-colors"
+            className="text-gray-600 font-bold transition-colors"
           >
             monto
           </a>{' '}
@@ -179,7 +179,7 @@ export function FourPhotosOneStartup() {
             href="https://v0.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-gray-800 transition-colors"
+            className="text-gray-600 font-bold transition-colors"
           >
             v0
           </a>
