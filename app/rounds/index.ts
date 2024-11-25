@@ -126,10 +126,10 @@ export const gameRounds: GameRound[] = [
 
   {
     images: [
-      '/round-images/Astro-1.webp',
-      '/round-images/Astro-2.webp',
-      '/round-images/Astro-3.webp',
-      '/round-images/Astro-4.webp',
+      '/round-images/astro-1.webp',
+      '/round-images/astro-2.webp',
+      '/round-images/astro-3.webp',
+      '/round-images/astro-4.webp',
     ],
     answer: 'Astro',
   },
