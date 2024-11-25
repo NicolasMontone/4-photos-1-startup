@@ -24,6 +24,9 @@ async function generateInitialPrompts(startup: string) {
     For example, the clues for "Vercel" it should be 1 a moustache representing Guillermo (its CEO), 2 a rabbit for Evil Rabbit (its designer), 3 pyramids resembling their logo, and 4 a right arrow emoji resembling Next.js.
     For "Supabase" should be a green elephant ... etc
 
+    The ideas should be unique and not related to each other.
+    for example if you use an elephant for supabase, you should not use an elephant for other supabase prompt.
+
 
     `,
   })
