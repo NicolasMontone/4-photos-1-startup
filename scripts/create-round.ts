@@ -114,7 +114,7 @@ async function main() {
 
   const imageFiles = await Promise.all(
     imageUrls.map(async (url, index) => {
-      const filename = `public/images/${startup}-${index + 1}.webp`
+      const filename = `public/round-images/${startup}-${index + 1}.webp`
       await downloadImage(url, filename)
       return `/${filename.split('/').slice(1).join('/')}`
     })
