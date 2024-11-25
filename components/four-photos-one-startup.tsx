@@ -106,15 +106,15 @@ export function FourPhotosOneStartup() {
           {gameRounds[currentRoundIndex].images.map((src, index) => (
             <div
               key={src}
-              className="cursor-pointer transition-transform hover:scale-[1.02]"
+              className="cursor-pointer transition-transform hover:scale-[1.02] relative rounded-lg overflow-hidden"
               onClick={() => setSelectedImage(src)}
             >
               <Image
                 src={src}
                 alt={`Startup hint ${index + 1}`}
-                width={250}
-                height={250}
-                className="rounded-lg"
+                width={500}
+                height={500}
+                className="object-cover"
               />
             </div>
           ))}
